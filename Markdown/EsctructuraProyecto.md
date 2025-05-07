@@ -1,0 +1,49 @@
+# Lenguaje y Frameworks
+
+El proyecto fue propuesto para desarrollarse en una API (Interfaz de Programación de Aplicaciones) con PHP y Laravel ya que ofrece numerosas ventajas, tanto para el desarrollo como para el mantenimiento y la escalabilidad de las aplicaciones.
+
+## Ventajas principales de usar Laravel para crear APIs:
+
+- **Desarrollo rápido y eficiente**: Laravel proporciona una sintaxis elegante y expresiva, además de numerosas herramientas y funcionalidades preconstruidas (como el ORM Eloquent, el sistema de enrutamiento y las herramientas de testing), que agilizan el proceso de desarrollo de APIs. Esto te permite concentrarte en la lógica de negocio en lugar de perder tiempo en tareas repetitivas.
+- **Arquitectura MVC (Modelo-Vista-Controlador)**: Laravel sigue el patrón de diseño MVC, lo que separa la lógica de la aplicación, la interfaz de usuario y la gestión de datos. Esto facilita la organización del código, su mantenimiento y la colaboración entre desarrolladores. En el contexto de una API, los controladores se encargan de recibir las peticiones, procesarlas y devolver las respuestas.
+- **ORM Eloquent**: Eloquent es el ORM (Mapeador Objeto-Relacional) de Laravel, que simplifica la interacción con la base de datos. Permite realizar consultas y manipular los datos de forma sencilla utilizando objetos y métodos, en lugar de escribir consultas SQL directamente. Esto mejora la legibilidad del código y reduce la posibilidad de errores.
+- **Sistema de enrutamiento flexible**: Laravel ofrece un sistema de enrutamiento potente y flexible que te permite definir las rutas de tu API de forma clara y concisa. Puedes definir rutas para diferentes métodos HTTP (GET, POST, PUT, DELETE, etc.), agrupar rutas, aplicar middleware y mucho más.
+- **Middleware**: Los middleware te permiten interceptar las peticiones HTTP antes de que lleguen a tu controlador. Esto es útil para realizar tareas como autenticación, autorización, validación de datos y registro de logs. Laravel proporciona middleware predefinidos y también te permite crear los tuyos propios.
+- **Autenticación y autorización**: Laravel ofrece soluciones robustas para la autenticación y autorización de usuarios, como Laravel Sanctum y Laravel Passport. Estas herramientas facilitan la implementación de sistemas de autenticación basados en tokens, OAuth y otras estrategias.
+- **Testing**: Laravel facilita la realización de pruebas unitarias y de integración, lo que te ayuda a asegurar la calidad y el correcto funcionamiento de tu API. Puedes utilizar herramientas como PHPUnit y Pest para escribir tests de forma sencilla.
+- **Seguridad**: Laravel incorpora medidas de seguridad para proteger tus aplicaciones contra vulnerabilidades comunes, como la inyección SQL, el Cross-Site Scripting (XSS) y el Cross-Site Request Forgery (CSRF).
+- **Comunidad y documentación**: Laravel cuenta con una gran comunidad de desarrolladores y una excelente documentación, lo que facilita la búsqueda de ayuda y la resolución de problemas.
+- **Escalabilidad**: Gracias a su arquitectura y a las herramientas que proporciona, Laravel te permite construir APIs escalables que pueden manejar un gran volumen de tráfico y datos.
+
+## Arquitectura
+
+(Clean Architecture) es un patrón de diseño de software que busca crear sistemas altamente mantenibles, testeables y escalables. Se centra en la separación de responsabilidades y la creación de capas de abstracción que aíslan el código de los detalles de implementación, como frameworks, bases de datos o interfaces de usuario.
+
+> "Esta estructura de proyecto implementa los principios de la Arquitectura Limpia, buscando la separación de responsabilidades y la alta mantenibilidad."
+
+- **Modelos** (`Models/PatientsModel.php`): Representan las entidades del dominio, conteniendo la lógica de negocio central.
+- **Servicios** (`Services/*`): Implementan los casos de uso de la aplicación. `PatientsServiceInterface.php` define una interfaz que `PatientsService.php` implementa, permitiendo la inyección de dependencias y la fácil sustitución de implementaciones. Los servicios encapsulan la lógica específica de cada operación, como crear, actualizar o eliminar pacientes.
+- **Controladores** (`Http/Controllers/*`): Actúan como adaptadores de interfaz, recibiendo las peticiones HTTP, validando la entrada, transformando los datos a través de los DTOs (`DataTransferObjects/PatientsData.php`), invocando los servicios y devolviendo las respuestas. No contienen lógica de negocio.
+- **DTOs** (`DataTransferObjects/PatientsData.php`): Son objetos de transferencia de datos que definen la estructura de los datos que se intercambian entre las capas, promoviendo el desacoplamiento.
+
+Esta estructura permite que los cambios en la interfaz de usuario, la base de datos o el framework tengan un impacto mínimo en la lógica de negocio central, facilitando el mantenimiento, las pruebas y la escalabilidad de la aplicación.
+
+
+app/
+├── Http/
+│   └── Controllers/
+│       └── Api/
+│           └── PatientsController.php
+├── Models/
+│   └── PatientsModel.php
+├── Services/
+│   ├── Interfaces/
+│   │   └── PatientsServiceInterface.php
+│   └── PatientsService.php
+└── DataTransferObjects/
+    └── PatientsData.php
+providers/
+    AppServiceProvider.php
+
+
+
