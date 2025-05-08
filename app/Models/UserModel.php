@@ -21,9 +21,20 @@ class UserModel extends Authenticatable
     protected $table = 'users';
 
     protected $fillable = [
-        'name',
+        
+        'first_name',
+        'last_name',
+        'date_of_birth',
         'email',
         'password',
+        'gender',
+        'address',
+        'phone_number',
+        'email',
+        'insurance',
+        'dni',
+        'product',
+        'membership',
     ];
 
     /**
@@ -46,6 +57,7 @@ class UserModel extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'date_of_birth' => 'date', // Asegura que se maneje como una fecha
         ];
     }
 }

@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Services\Interfaces\UserServiceInterface;
 use Illuminate\Http\JsonResponse;
-
+use Throwable;
 
 class UserController extends Controller
 {
@@ -19,19 +19,34 @@ class UserController extends Controller
     }
 
     /**
-    * Store a newly created user in storage.
+    * Almacena un nuevo paciente en la base de datos.
+    *
+    * Este método recibe una solicitud validada (`StorePatientsRequest`) con los datos del paciente,
+    * utiliza un servicio (`pacienteService`) para crear el paciente y devuelve una respuesta JSON.
+    *
+    * @param StoreUserRequest $request La solicitud con los datos del paciente validados.
+    * @return \Illuminate\Http\JsonResponse Una respuesta JSON con el resultado de la operación.
     */
     public function store(StoreUserRequest $request): JsonResponse
     {
+        try {
+            // Crear el DTO a partir de la solicitud (usar from para llenar el DTO)
+            $userData = UserData::from($request->validated());
+            $user = $this->userService->create($userData);
 
-        // Crear el DTO a partir de la solicitud (usar from para llenar el DTO)
-        $userData = UserData::from($request->validated());
-
-        $user = $this->userService->create($userData);
-
-        return response()->json([
-            'message' => 'User created successfully',
-            'user' => $user
-        ], 201);
+            return response()->json([
+                'success' => true,
+                'message' => 'User created successfully',
+                'data' => $user,
+            ], 201);
+        } 
+        catch (Throwable $e) 
+        {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to create user',
+                'error' => $e->getMessage(), // Opcional: solo en desarrollo
+            ], 500);
+        }
     }
 }

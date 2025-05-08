@@ -30,7 +30,7 @@ enum LogHelpers: string
      * Método estático para acceder a los casos del enum como si fueran métodos.
      *
      * Este método mágico permite llamar a los casos del enum directamente, por
-     * ejemplo: `LogHelpers::CreatePatients()`.
+     * ejemplo: `LogHelpers::CreateUser()`.
      *
      * @param string $name El nombre del caso al que se intenta acceder.
      * @param array $arguments Argumentos (no se usan en este caso).
@@ -76,20 +76,17 @@ enum LogHelpers: string
     case InfoDelete = 'Método Delete ejecutado satisfactoriamente';
     
     /**
-     * Mensaje para el servicio de creación de pacientes.
+     * Mensaje para el servicio de creación de Usuario.
      */
-    case CreatePatients = 'Servicio CreatePatients';
+    case CreateUser = 'Servicio CreateUser';
 
     /**
-     * Mensaje para el servicio de Listado de pacientes.
+     * Mensaje para el servicio de Listado de Usuario.
      */
-    case GetAllPatients = 'Servicio GetAllPatients';
+    case GetAllUser = 'Servicio GetAllUser';
     /**
-     * Mensaje para el servicio de Listado de pacientes por ID.
+     * Mensaje para el servicio de Listado de Usuario por ID.
      */
     case GetPatientById = 'Servicio GetPatientById';
-     /**
-     * Mensaje para el servicio de creación de pacientes.
-     */
-    case CreatOrdersColombia = 'Servicio CreateOrders de Colombia';
+
 }
